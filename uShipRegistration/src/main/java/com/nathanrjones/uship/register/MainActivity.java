@@ -22,6 +22,11 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
+import org.apache.http.entity.StringEntity;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends Activity
         implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
@@ -126,24 +131,34 @@ public class MainActivity extends Activity
 
             String url = urls[0];
 
-            RequestParams params = new RequestParams();
-            params.put("siteId", "UnitedStates");
-            params.put("userType","shipper");
-            params.put("shipperType", mShipper.getShipperType());
-            params.put("firstName", mShipper.getFirstName());
-            params.put("lastName", mShipper.getLastName());
-            params.put("emailAddress", mShipper.getEmailAddress());
-            params.put("companyName", mShipper.getCompanyName());
-            params.put("password", mShipper.getPassword());
+            JSONObject params = new JSONObject();
+            try {
+                params.put("siteId", "UnitedStates");
+                params.put("userType","shipper");
+                params.put("shipperType", mShipper.getShipperType());
+                params.put("firstName", mShipper.getFirstName());
+                params.put("lastName", mShipper.getLastName());
+                params.put("emailAddress", mShipper.getEmailAddress());
+                params.put("companyName", mShipper.getCompanyName());
+                params.put("password", mShipper.getPassword());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            StringEntity entity = null;
+
+            try {
+                entity = new StringEntity(params.toString());
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            entity.setContentEncoding("UTF-8");
+            entity.setContentType("application/json");
 
             AsyncHttpClient client = new AsyncHttpClient();
 
-//            Header[] headers = {
-//                    new BasicHeader("x-registration-process-type", "")
-//
-//            };
-
-            client.post(MainActivity.this, url, null, params, "application/json", new AsyncHttpResponseHandler(){
+            client.post(MainActivity.this, url, entity, "application/json", new AsyncHttpResponseHandler(){
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     Toast.makeText(MainActivity.this, "Account Created!", Toast.LENGTH_SHORT).show();
