@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Join uShip</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Registration Form -->
+    <string name="join_prompt">Fill out the fields below to join uShip!</string>
+    <string name="first_name_prompt">First Name</string>
+    <string name="last_name_prompt">Last Name</string>
+    <string name="email_address_prompt">Email Address</string>
+    <string name="company_name_prompt">Company Name</string>
+    <string name="password_prompt">Password</string>
+    <string name="join_button">Join uShip</string>
+    <string name="shipper_type_prompt">Shipper Type</string>
+
+</resources>
