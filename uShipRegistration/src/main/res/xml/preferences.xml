@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <PreferenceCategory
+        android:title="General"
+        android:key="general_category">
+
+        <CheckBoxPreference
+            android:key="pref_use_production"
+            android:title="Create User In Production"
+            android:summary="Leave unchecked to create user in dev" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="About"
+        android:key="about_category">
+
+        <Preference
+            android:title="Built by Nathan Jones"
+            android:summary="me@nathanrjones.com"/>
+
+        <Preference
+            android:title="Version"
+            android:summary="0.1"/>
+
+        </PreferenceCategory>
+
+</PreferenceScreen>

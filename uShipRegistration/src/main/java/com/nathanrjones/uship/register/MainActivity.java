@@ -3,9 +3,11 @@ package com.nathanrjones.uship.register;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -40,8 +43,11 @@ public class MainActivity extends Activity
     private EditText mCompanyName;
     private EditText mPassword;
     private Button mJoinButton;
+    private TextView mSelectedEnvironment;
 
-    private String URL_CREATE_USER = "http://www.uship.com/mvc/register/CreateUser";
+    private String URL_CREATE_USER_PROD = "http://www.uship.com/mvc/register/CreateUser";
+    private String URL_CREATE_USER_DEV = "http://dev.uship.com/mvc/register/CreateUser";
+    private String mUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +80,14 @@ public class MainActivity extends Activity
         mJoinButton.setOnClickListener(this);
         mShipperType.setOnCheckedChangeListener(this);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        boolean useProduction = prefs.getBoolean("pref_use_production", false);
+
+        mUrl = useProduction ? URL_CREATE_USER_PROD : URL_CREATE_USER_DEV;
+
+        mSelectedEnvironment = (TextView) findViewById(R.id.selected_environment);
+        mSelectedEnvironment.setText(useProduction ? "Production" : "Development");
+
     }
 
 
@@ -92,6 +106,9 @@ public class MainActivity extends Activity
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.action_settings:
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, SettingsActivity.class);
+                startActivityForResult(intent, 0);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -109,7 +126,7 @@ public class MainActivity extends Activity
                 mShipper.setPassword(mPassword.getText().toString());
 
                 CreateUserTask task = new CreateUserTask();
-                task.execute(URL_CREATE_USER);
+                task.execute(mUrl);
                 break;
         }
     }

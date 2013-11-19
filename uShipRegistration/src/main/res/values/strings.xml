@@ -13,5 +13,6 @@
     <string name="password_prompt">Password</string>
     <string name="join_button">Join uShip</string>
     <string name="shipper_type_prompt">Shipper Type</string>
+    <string name="title_settings">Settings</string>
 
 </resources>
