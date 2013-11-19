@@ -49,14 +49,17 @@
 
         <EditText
             android:id="@+id/first_name"
+            android:text="Nathan"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:hint="@string/first_name_prompt"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:nextFocusDown="@+id/last_name"/>
 
         <EditText
             android:id="@+id/last_name"
+            android:text="Jones"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -67,6 +70,7 @@
 
     <EditText
         android:id="@+id/email_address"
+        android:text="me+fakeapi@natejon.es"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="@string/email_address_prompt"
@@ -75,6 +79,7 @@
 
     <EditText
         android:id="@+id/company_name"
+        android:text="uShip"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="@string/company_name_prompt"
@@ -82,6 +87,7 @@
 
     <EditText
         android:id="@+id/password"
+        android:text="mypassword"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="@string/password_prompt"
